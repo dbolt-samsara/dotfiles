@@ -1,0 +1,8 @@
+/build
+/eclipse-build
+.settings
+.classpath
+.project
+eclipse-in
+.*.swp
+.DS_Store

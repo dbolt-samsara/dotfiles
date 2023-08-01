@@ -1,0 +1,80 @@
+" IdeaVIM Action List
+" https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
+" :actionlist
+
+set ignorecase
+set smartcase
+set visualbell
+set multiple-cursors
+
+" Integrate with system clipboard
+set clipboard=unnamedplus,unnamed
+
+" Remap leader to space
+let mapleader = " "
+
+nmap <Leader>w :w<CR>
+nmap <Leader>q :q<CR>
+nmap <Leader>d :q<CR>
+
+" Reload .ideavimrc
+nmap <Leader>vs :source ~/.ideavimrc<CR>
+
+" Multiple Cursors
+map <C-n> <A-n>
+map <C-p> <A-p>
+map <C-x> <A-x>
+map g<C-n> g<A-n>
+
+" Toggle line numbers
+nmap <Leader>n :set rnu!<CR>
+
+" Map jumplist to IdeaVIM's navigate back / forth
+nmap <C-i> :action Forward<CR>
+nmap <C-o> :action Back<CR>
+
+" Activate Windows Window
+nmap <C-t> :action ActivateProjectToolWindow<CR>
+nmap <C-z> :action ActivateTerminalToolWindow<CR>
+nmap <Leader>t :action ActivateStructureToolWindow<CR>
+
+" Move Tabs
+nmap ) :action NextTab<CR>
+nmap ( :action PreviousTab<CR>
+
+" Move windows
+nmap <C-k> <C-w>k
+nmap <C-j> <C-w>j
+nmap <C-l> <C-w>l
+nmap <C-h> <C-w>h
+
+" Split Window
+nmap <C--> :action VimWindowSplitHorizontal<CR>
+nmap <C-\> :action VimWindowSplitVertical<CR>
+
+" Comment
+map <Leader>cl :action CommentByLineComment<CR>
+map <Leader>cu :action CommentByLineComment<CR>
+
+" Link To Code Browser
+map <Leader>cx :action BPIJPlugin.LinkToCodeBrowser<CR>
+
+" Finding / Traversing
+nmap / :action Find<CR>
+nmap n :action FindNext<CR>
+nmap N :action FindPrevious<CR>
+nmap <Leader>a :action FindInPath<CR>
+nmap g; :action JumpToLastChange<CR>
+nmap <C-p> :action GotoClass<CR>
+nmap <Leader>p :action GotoClass<CR>
+nmap <Leader>m :action RecentFiles<CR>
+
+" IDE
+nmap <Leader>jd :action QuickJavaDoc<CR>
+nmap <Leader>js :action GotoDeclaration<CR>
+nmap <Leader>jr :action FindUsages<CR>
+nmap <Leader>ji :action OptimizeImports<CR>
+
+" Errors
+nmap <Leader>gn :action GotoNextError<CR>
+nmap <Leader>gp :action GotoPreviousError<CR>

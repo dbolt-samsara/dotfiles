@@ -1,0 +1,187 @@
+#######################
+# REMAP KEYS
+#######################
+bindkey ^A beginning-of-line
+bindkey ^E end-of-line
+
+function fancy-ctrl-z {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+########################
+# BASIC LINUX COMMANDS
+########################
+
+alias ls='ls --color=auto'
+alias ll='ls -l -h'
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias grep='grep --color=auto'
+alias vi='vim'
+alias edit='vim'
+alias ping='ping -c 5'
+alias removeNewline="sed -i ':a;N;\$!ba;s/\n/ /g'"
+alias removeNonAscii='iconv -c -f utf-8 -t ascii'
+alias parsejson="ruby -rjson -e 'puts JSON.pretty_generate(JSON.parse(ARGF.read))'"
+alias history="history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head"
+alias l1="tree --dirsfirst -ChFL 1"
+alias l2="tree --dirsfirst -ChFL 2"
+alias l3="tree --dirsfirst -ChFL 3"
+alias initssh="ssh-agent -s && ssh-add ~/.ssh/id_ed25519"
+
+# parse json in a file. Assumes each line contains valid json. Useful for
+# formatting json from recs output
+#
+# $1: name of the file to read from
+function parse-json-file {
+    for i in {1..`cat $1 | wc -l`}; do head -n $i $1 | tail -n 1 | parsejson; done
+}
+
+function portusage {
+    lsof -i :$1
+}
+
+#checks if port is open, useful for verifying desktop to prod connections are
+#open. Filtered means blocked, open / close means open through firewall and not
+#listening or currently listening, respectively.
+#
+#$1 = hostname, the host you wish to communicate with
+#$2 = port to communicate on
+function portallowed {
+    nmap $1 -p $2
+}
+
+# Epoch time conversion
+function epoch {
+    TESTREG="[\d{10}]"
+    if [[ "$1" =~ $TESTREG ]]; then
+    # is epoch
+    date -u --iso-8601=seconds -d @$*
+    else
+        # is date
+        if [ $# -gt 0 ]; then
+            date +%s --date="$*"
+        else
+            date +%s
+        fi
+    fi
+}
+
+function capitalize-all {
+    echo $1 | tr '[:lower:]' '[:upper:]'
+}
+
+function capitalize-first-letter {
+    echo ${(C)1}
+}
+
+##############
+# Projects
+##############
+function ws {
+  if [ ! $1 ]; then
+    cd ~/go/src/github.com/paxosglobal
+  else
+    cd ~/go/src/github.com/paxosglobal/$1
+  fi
+}
+
+function cmpl_ws {
+  local a
+  read -cA a # The thing typed in so far
+  reply=(`echo ~/go/src/github.com/paxosglobal/* | xargs -n1 basename`)
+}
+compctl -K cmpl_ws ws
+
+##############
+# AWS
+##############
+# $1 = region
+# $2 = aws account id
+function docker_login {
+    region=$1
+    account_id=$2
+    aws ecr get-login-password --region $region | docker login --username AWS --password-stdin $account_id.dkr.ecr.us-east-1.amazonaws.com
+}
+
+##############
+# Paxos
+##############
+
+##############
+# Kube
+##############
+# Setup helpers
+credsStaging() {
+    kubectx eks-staging-itbitnonprod
+    creds itbitnonprod
+}
+
+credsSandbox() {
+    kubectx eks-sandbox-itbitprod
+    creds itbitprod
+}
+
+credsProd() {
+    kubectx eks-prod-itbitprod
+    creds itbitprod
+}
+
+creds() {
+    REALM_NAME=$1
+    eval $(init-realm-env $REALM_NAME)
+
+    [ $? != 0 ] && return 1
+    vault login -method=oidc
+    [ $? != 0 ] && return 1
+    setup-aws 1
+}
+
+# Staging kube commands
+alias ctxStaging='kubectx eks-staging-itbitnonprod'
+alias ctxWestStaging='kubectx eks-staging-itbitnonprod-us-west-2'
+alias getPodsStaging='kubectl get pods -n staging-platform'
+
+
+getVersionsStaging() {
+    getVersions staging-platform
+}
+
+# Sandbox kube commands
+alias ctxSandbox='kubectx eks-sandbox-itbitprod'
+alias ctxWestSandbox='kubectx eks-sandbox-itbitprod-us-west-2'
+alias getPodsSandbox='kubectl get pods -n sandbox-platform'
+
+getVersionsSandbox() {
+    getVersions sandbox-platform
+}
+
+# Prod Kube commands
+alias ctxProd='kubectx eks-prod-itbitprod'
+alias ctxWestProd='kubectx eks-prod-itbitprod-us-west-2'
+alias getPodsProd='kubectl get pods -n prod-platform'
+
+getVersionsProd() {
+    getVersions prod-platform
+}
+
+getVersions() {
+    ENVIRONMENT=$1
+    kubectl get pods -n $ENVIRONMENT -o jsonpath="{.items[*].spec.containers[*].image}" |\
+    tr -s '[[:space:]]' '\n' |\
+    sort |\
+    uniq -c
+}
