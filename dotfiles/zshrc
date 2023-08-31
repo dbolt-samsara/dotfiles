@@ -24,6 +24,9 @@ function setup_zsh {
         export VIRTUALENV_PYTHON=$PYTHON_CMD
     fi
 
+    # Set up asdf for java
+    . $HOME/.asdf/plugins/java/set-java-home.zsh
+
     #if [ -e ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ]; then
     #    export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
     #fi

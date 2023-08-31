@@ -56,6 +56,9 @@ Plugin 'tyru/open-browser.vim'
 Plugin 'aklt/plantuml-syntax' 
 Plugin 'weirongxu/plantuml-previewer.vim'
 
+" GitHub CoPilot
+Plugin 'github/copilot.vim'
+
 " To find duplicate mappings.  E.g. <leader>p duplicates:
 " :verbose map <leader>p
 
