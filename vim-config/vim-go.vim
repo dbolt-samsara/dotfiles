@@ -5,6 +5,11 @@ let g:go_list_type = "quickfix"
 let g:go_highlight_operators = 1
 let g:go_auto_sameids = 1
 let g:go_test_timeout = '60s'
+let g:go_fmt_command = 'goimports'
+  let g:go_fmt_options = {
+    \ 'gofmt': '-s',
+    \ 'goimports': '-local github.com/paxosglobal',
+    \ }
 
 nnoremap <leader>ga :GoAlternate<CR>
 nnoremap <leader>gd :GoDeclsDir<CR>
