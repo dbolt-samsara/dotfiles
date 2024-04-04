@@ -70,6 +70,9 @@ def install_initial_dependencies()
 
   puts "Installing tmuxinator..."
   `brew install tmuxinator`
+
+  puts "Intalling github cli..."
+  `brew install gh`
 end
 
 def install_dotfiles()
