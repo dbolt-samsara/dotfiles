@@ -24,6 +24,11 @@ function setup_zsh {
         export VIRTUALENV_PYTHON=$PYTHON_CMD
     fi
 
+    if which gh &> /dev/null; then
+        eval "$(gh completion -s zsh)"
+        eval "$(gh copilot alias -- zsh)"
+    fi
+
     # Set up asdf for java
     . $HOME/.asdf/plugins/java/set-java-home.zsh
 
