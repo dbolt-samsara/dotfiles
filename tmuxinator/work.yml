@@ -57,3 +57,10 @@ windows:
         - pwd
         - pwd
         - pwd
+  - infra:
+      root: ~/go/src/github.com/paxosglobal/paxos-infra
+      layout: main-horizontal
+      panes:
+        - pwd
+        - pwd
+        - pwd
