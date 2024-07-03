@@ -45,11 +45,14 @@ function setup_autocomplete {
 
 function setup_antigen {
     source /opt/homebrew/share/antigen/antigen.zsh
+
     # Load the oh-my-zsh's library.
     antigen use oh-my-zsh
     antigen bundle git
     antigen bundle vi-mode
     antigen bundle vundle
+    antigen bundle kubectl
+    antigen bundle minikube
 
     # Syntax highlighting bundle.
     antigen bundle zsh-users/zsh-syntax-highlighting
