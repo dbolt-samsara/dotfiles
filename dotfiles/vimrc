@@ -183,13 +183,39 @@ nnoremap ( :bp<CR>
 nnoremap _ :e #<CR>
 
 " list buffer prompt
-nnoremap <Leader>l :ls<CR>:b<Space>
+nnoremap <Leader>ls :ls<CR>:b<Space>
 
 " horizontal split buffer
 nnoremap <silent><Leader>hs :sp<CR>:wincmd j<CR>
 
 " vertical split buffer
 nnoremap <silent><Leader>vs :vs<CR>:wincmd l<CR>
+
+" https://vi.stackexchange.com/questions/14829/close-multiple-buffers-interactively
+" Displays buffer list, prompts for buffer numbers and ranges and deletes
+" associated buffers. Example input: 2 5,9 12
+" Hit Enter alone to exit.
+function! InteractiveBufDelete()
+    let l:prompt = "Specify buffers to delete: "
+
+    ls | let bufnums = input(l:prompt)
+    while strlen(bufnums)
+        echo "\n"
+        let buflist = split(bufnums)
+        for bufitem in buflist
+            if match(bufitem, '^\d\+,\d\+$') >= 0
+                exec ':' . bufitem . 'bd'
+            elseif match(bufitem, '^\d\+$') >= 0
+                exec ':bd ' . bufitem
+            else
+                echohl ErrorMsg | echo 'Not a number or range: ' . bufitem | echohl None
+            endif
+        endfor
+        ls | let bufnums = input(l:prompt)
+    endwhile
+
+endfunction
+nnoremap <silent> <leader>bd :call InteractiveBufDelete()<CR>
 
 "highlight VertSplit guibg=Orange guifg=Black ctermbg=6 ctermfg=0
 
