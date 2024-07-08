@@ -104,10 +104,6 @@ def install_dotfiles()
   # Zsh config
   symlink(ZSH_DIR, "#{Dir.home}/.zsh")
 
-  # Install antigen
-  puts "Installing Antigen..."
-  `git clone https://github.com/zsh-users/antigen.git ~/.zsh/antigen`
-
   # config directory
   if !File.directory?("#{Dir.home}/.config")
     Dir.mkdir("#{Dir.home}/.config")
