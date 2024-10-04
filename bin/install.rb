@@ -48,11 +48,17 @@ def install_initial_dependencies()
   puts "Installing homebrew..."
   `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
+  puts "Installing oh-my-zsh"
+  `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+
   puts "Install neovim..."
   `brew install neovim`
 
   puts "Install lazygit"
   `brew install lazygit`
+
+  puts "Install antigen"
+  `brew install antigen`
 
   puts "Install colorls"
   `sudo gem install colorls`
