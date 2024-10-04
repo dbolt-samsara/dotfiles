@@ -18,13 +18,11 @@ Plugin 'vim-airline/vim-airline-themes' "VIM-airline themes
 Plugin 'Yggdroot/indentLine' "Highlights indents
 Plugin 'kien/rainbow_parentheses.vim' "Colored parenthesis, brackets, and curly braces
 
-
 "IDE Like Stuff
 Plugin 'kien/ctrlp.vim' "Type ctrl+p and serach for files easily
 Plugin 'scrooloose/nerdtree' "Easy to use file browser, type ctrl+t
 Plugin 'scrooloose/nerdcommenter' "Vim plugin for intensely orgasmic commenting
 Plugin 'scrooloose/syntastic' "Syntax checking hacks for vim, displays errors on left after save
-"Plugin 'dense-analysis/ale' "Asynchronous Lint Engine, displays errors after save 
 Plugin 'ycm-core/YouCompleteMe' "Auto complete while you type
 Plugin 'Raimondi/delimitMate' "Auto add dual quotes, parenthesis, brackets, etc.
 Plugin 'preservim/tagbar' "See your tags in code, functions, variables, classes, etc.
@@ -51,6 +49,7 @@ Plugin 'stephpy/vim-yaml' "Override default vim yaml
 
 Plugin 'tpope/vim-fugitive' "Git wrapper so awesome, it should be illegal
 Plugin 'Konfekt/vim-alias' "Vim aliases, make aliases over vim functions
+Plugin 'pseewald/vim-anyfold' "Vim folding for any language
 
 " PlantUML
 Plugin 'tyru/open-browser.vim'
@@ -84,6 +83,9 @@ set t_Co=256
 
 "Use spaces instead of tabs
 set tabstop=4 softtabstop=4 expandtab shiftwidth=4
+
+" Unlimited max mem pattern
+set maxmempattern=2000000
 
 " Persistent undo
 set undodir=~/.vim/undodir
@@ -181,6 +183,9 @@ nnoremap ( :bp<CR>
 
 " go to last buffer
 nnoremap _ :e #<CR>
+
+" go to buffer number
+nnoremap <Leader>b :b<Space>
 
 " list buffer prompt
 nnoremap <Leader>ls :ls<CR>:b<Space>
@@ -281,6 +286,9 @@ nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 nmap <silent> <leader>c :call ToggleList("Quickfix List", 'c')<CR>
 nmap <silent> <leader>cb :call QuickFixOpenBig()<CR>
 
+" In the quickfix window, <CR> is used to jump to the error under the
+" cursor, so undefine the mapping there.
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 " *************************************************************
 " ***************** Cool helper functions *********************

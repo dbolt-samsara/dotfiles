@@ -91,10 +91,6 @@ function setup_aliases {
     if [ -f ~/.zsh_aliases ]; then
         source ~/.zsh_aliases
     fi
-
-    if [ -f ~/go/src/github.com/paxosglobal/tools/dotfiles/.vars ]; then
-        source ~/go/src/github.com/paxosglobal/tools/dotfiles/.vars
-    fi
 }
 
 setup_zsh

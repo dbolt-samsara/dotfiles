@@ -8,9 +8,9 @@ set wildignore+=*/virtualenv/**
 " Set search directory to...
 " 'c' - the directory of the current file.
 " 'r' - the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr _darcs
-" 'a' - like c, but only if the current working directory outside of CtrlP is not a direct ancestor of
-"let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_root_markers = ['.workspace']
+" 'a' - the directory of the current file, unless it is a subdirectory of the cwd
+let g:ctrlp_working_path_mode = 'r'
+"let g:ctrlp_root_markers = ['.workspace']
 let g:ctrlp_mruf_last_entered = 1
 let g:ctrlp_mruf_exclude = '\v\.git/(MERGE_MSG|rebase-merge|COMMIT_EDITMSG|PULLREQ_EDITMSG|index)'
 
@@ -20,14 +20,16 @@ let g:ctrlp_open_multiple_files = 'i'
 " Use this option to specify how the newly created file is to be opened when pressing <c-y>
 let g:ctrlp_open_new_file = 'i'
 
-nnoremap <Leader>p :CtrlP<CR>
-nnoremap <Leader>b :CtrlPBuffer<CR>
-nnoremap <Leader>m :CtrlPMRU<CR>
+nnoremap <C-p> :CtrlP<CR>
+nnoremap <C-b> :CtrlPBuffer<CR>
+nnoremap <C-m> :CtrlPMRU<CR>
+
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
 " Make Ctrl+P faster by using Silver searcher
 if executable('ag')
     let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
-    let g:ctrlp_use_caching = 0
+    "let g:ctrlp_use_caching = 0
 else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
   let g:ctrlp_prompt_mappings = {

@@ -14,7 +14,6 @@ let g:go_test_timeout = '60s'
 let g:go_fmt_command = 'goimports'
 let g:go_fmt_options = {
     \ 'gofmt': '-s',
-    \ 'goimports': '-local github.com/paxosglobal',
 \ }
 let g:go_debug_windows = {
     \ 'vars':       'leftabove 30vnew',

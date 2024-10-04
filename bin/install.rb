@@ -9,14 +9,10 @@ require 'fileutils'
 
 MAC_VOLUME = "/Volumes/Macintosh HD"
 DOTFILES = "#{Dir.pwd}/dotfiles"
-VIM_AFTER = "#{Dir.pwd}/vim-after"
 VIM_CONFIG = "#{Dir.pwd}/vim-config"
-FTPLUGIN_CONFIG = "#{Dir.pwd}/ftplugin"
 CONFIG_DIR = "#{Dir.pwd}/config"
-ZSH_DIR = "#{Dir.pwd}/zsh"
-TMUXINATOR_DIR = "#{Dir.pwd}/tmuxinator"
 SCRIPTS = "#{Dir.pwd}/scripts"
-AWS_DIR = "#{Dir.pwd}/aws"
+NVIM_DIR = "#{Dir.pwd}/nvim"
 
 def main()
   options = parse_options()
@@ -28,10 +24,6 @@ def main()
   if options[:dotfiles]
     install_dotfiles
   end
-
-  if options[:vim_plugins]
-    install_vim_plugins
-  end
 end
 
 def parse_options()
@@ -42,7 +34,6 @@ def parse_options()
 
     options[:initial_dependencies] = false
     options[:dotfiles] = false
-    options[:vim_plugins] = false
     opt.on('-d', '--dotfiles', 'Symlink dotfiles') { options[:dotfiles] = true }
     opt.on('-i', '--initial_dependencies', 'Install initial dependencies') { options[:initial_dependencies] = true }
     opt.on('-v', '--vim-plugins', 'Install VIM Plugins') { options[:vim_plugins] = true }
@@ -55,24 +46,17 @@ def parse_options()
 end
 
 def install_initial_dependencies()
-  puts "Installing flake8"
-  `pip install flake8`
+  puts "Installing homebrew..."
+  `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 
-  puts "Installing coreutils..."
-  `brew install coreutils`
+  puts "Install neovim..."
+  `brew install neovim`
 
-  puts "Installing tmux..."
-  `brew install tmux`
+  puts "Install lazygit"
+  `brew install lazygit`
 
-  # Allows copying within tmux to system clipboard
-  puts "Installing tmux addon..."
-  `brew install reattach-to-user-namespace`
-
-  puts "Installing tmuxinator..."
-  `brew install tmuxinator`
-
-  puts "Intalling github cli..."
-  `brew install gh`
+  puts "Install colorls"
+  `sudo gem install colorls`
 end
 
 def install_dotfiles()
@@ -97,46 +81,12 @@ def install_dotfiles()
   if !File.directory?("#{Dir.home}/.vim")
     Dir.mkdir("#{Dir.home}/.vim")
   end
-  symlink(VIM_AFTER, "#{Dir.home}/.vim/after")
   symlink(VIM_CONFIG, "#{Dir.home}/.vim/config")
-  symlink(FTPLUGIN_CONFIG, "#{Dir.home}/.vim/ftplugin")
-
-  # Zsh config
-  symlink(ZSH_DIR, "#{Dir.home}/.zsh")
 
   # config directory
   if !File.directory?("#{Dir.home}/.config")
     Dir.mkdir("#{Dir.home}/.config")
   end
-  Dir.foreach(CONFIG_DIR) do |file|
-    if File.file?("#{CONFIG_DIR}/#{file}")
-      symlink("#{CONFIG_DIR}/#{file}", "#{Dir.home}/.config/#{file}")
-    end
-  end
-
-  # Persistent undo
-  if !File.directory?("#{Dir.home}/.vim/undodir")
-    Dir.mkdir("#{Dir.home}/.vim/undodir")
-  end
-
-  # Create swapfile directory
-  if !File.directory?("#{Dir.home}/.vim/swapfiles")
-    Dir.mkdir("#{Dir.home}/.vim/swapfiles")
-  end
-
-  # Tmuxinator
-  symlink(TMUXINATOR_DIR, "#{Dir.home}/.tmuxinator")
-
-  # AWS directory
-  if !File.directory?("#{Dir.home}/.aws")
-    Dir.mkdir("#{Dir.home}/.aws")
-  end
-  Dir.foreach(AWS_DIR) do |file|
-    if File.file?("#{AWS_DIR}/#{file}")
-      symlink("#{AWS_DIR}/#{file}", "#{Dir.home}/.aws/#{file}")
-    end
-  end
-
 
 end
 
@@ -156,20 +106,6 @@ def symlink(source, target)
 
   File.symlink(source, target)
   puts "... Installed to #{target}"
-end
-
-def install_vim_plugins()
-  puts "Installing AG..."
-  `brew install ag`
-
-  puts "Installing CMake. Dependency of YouCompleteMe..."
-  `brew install cmake`
-
-  puts "Installing YouCompleteMe..."
-  `python ~/.vim/bundle/YouCompleteMe/install.py --ts-completer --rust-completer --go-completer`
-
-  puts "Installing ctags..."
-  `brew install ctags`
 end
 
 main

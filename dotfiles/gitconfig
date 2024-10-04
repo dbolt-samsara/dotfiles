@@ -17,34 +17,11 @@
     ciam = commit -am
     cph = "!f() { git cherry-pick `git rev-parse $1`; }; f"
     files-changed = diff-tree --no-commit-id --name-only -r
-
-    change-start = "!f() { \
-            if [ $# == 0 ]; then echo 'usage: git change-start <name>'; exit 1; fi; \
-            name=$1; \
-            git checkout mainline && \
-            git pull && \
-            git checkout -b $name origin/mainline; \
-        }; f"
-    change-finish = "!f() { \
-            if [ $# == 0 ]; then echo 'usage: git change-finish <name>'; exit 1; fi; \
-            name=$1; \
-            git fetch --prune && \
-            git checkout mainline && \
-            git pull && \
-            git branch --delete $name; \
-        }; f"
 [color]
     diff = auto
     ui = true
 [user]
-    email = 129457050+dbolt-paxos@users.noreply.github.com
+    email = derekbolt2@gmail.com
     name = Derek Bolt
-	signingkey = 5D9E86340015C8E0    
 [core]
-	editor = vim
-[url "git@github.com:"]
-       insteadOf = https://github.com/
-[commit]
-	gpgsign = true
-[gpg]
-	program = /opt/homebrew/bin/gpg
+    editor = /opt/homebrew/bin/nvim
