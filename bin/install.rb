@@ -36,7 +36,6 @@ def parse_options()
     options[:dotfiles] = false
     opt.on('-d', '--dotfiles', 'Symlink dotfiles') { options[:dotfiles] = true }
     opt.on('-i', '--initial_dependencies', 'Install initial dependencies') { options[:initial_dependencies] = true }
-    opt.on('-v', '--vim-plugins', 'Install VIM Plugins') { options[:vim_plugins] = true }
     opt.on('-h', '--help', 'Diplay this screen') { puts opt; exit; }
   end
 
@@ -88,6 +87,8 @@ def install_dotfiles()
     Dir.mkdir("#{Dir.home}/.config")
   end
 
+  # nvim 
+  symlink(NVIM_DIR, "#{Dir.home}/.config/nvim")
 end
 
 def symlink(source, target)
@@ -98,7 +99,7 @@ def symlink(source, target)
     puts "... File was already a symlink, deleting"
   end
 
-  if File.exists?(target)
+  if File.exist?(target)
     backup_loc = "#{target}.bak"
     FileUtils.mv(target, backup_loc)
     puts "... File already exists, backing up to #{backup_loc}"
