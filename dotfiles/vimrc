@@ -1,63 +1,63 @@
 " *********************************************
 " Plugins
 " *********************************************
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
+" set nocompatible
+" filetype off
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#rc()
 
 " Add plugins here. String routes to github location.
-Plugin 'VundleVim/Vundle.vim' "Vim package manager, makes all the vim plugins work
+" Plugin 'VundleVim/Vundle.vim' "Vim package manager, makes all the vim plugins work
 
 "Style / Themes / Aesthetics
-Plugin 'flazz/vim-colorschemes' "Vim color schemes
-Plugin 'powerline/fonts' "Powerline fonts
-Plugin 'edkolev/tmuxline.vim' "Tmux integration with vim-airline
-Plugin 'bling/vim-airline' "Status line for VIM
-Plugin 'vim-airline/vim-airline-themes' "VIM-airline themes
-Plugin 'Yggdroot/indentLine' "Highlights indents
-Plugin 'kien/rainbow_parentheses.vim' "Colored parenthesis, brackets, and curly braces
+" Plugin 'flazz/vim-colorschemes' "Vim color schemes
+" Plugin 'powerline/fonts' "Powerline fonts
+" Plugin 'edkolev/tmuxline.vim' "Tmux integration with vim-airline
+" Plugin 'bling/vim-airline' "Status line for VIM
+" Plugin 'vim-airline/vim-airline-themes' "VIM-airline themes
+" Plugin 'Yggdroot/indentLine' "Highlights indents
+" Plugin 'kien/rainbow_parentheses.vim' "Colored parenthesis, brackets, and curly braces
 
 "IDE Like Stuff
-Plugin 'kien/ctrlp.vim' "Type ctrl+p and serach for files easily
-Plugin 'scrooloose/nerdtree' "Easy to use file browser, type ctrl+t
-Plugin 'scrooloose/nerdcommenter' "Vim plugin for intensely orgasmic commenting
-Plugin 'scrooloose/syntastic' "Syntax checking hacks for vim, displays errors on left after save
-Plugin 'ycm-core/YouCompleteMe' "Auto complete while you type
-Plugin 'Raimondi/delimitMate' "Auto add dual quotes, parenthesis, brackets, etc.
-Plugin 'preservim/tagbar' "See your tags in code, functions, variables, classes, etc.
-Plugin 'tpope/vim-surround' "Surrounds words with parentheses, brackets, quotes, XML tags, and more.
+" Plugin 'kien/ctrlp.vim' "Type ctrl+p and serach for files easily
+" Plugin 'scrooloose/nerdtree' "Easy to use file browser, type ctrl+t
+" Plugin 'scrooloose/nerdcommenter' "Vim plugin for intensely orgasmic commenting
+" Plugin 'scrooloose/syntastic' "Syntax checking hacks for vim, displays errors on left after save
+" Plugin 'ycm-core/YouCompleteMe' "Auto complete while you type
+" Plugin 'Raimondi/delimitMate' "Auto add dual quotes, parenthesis, brackets, etc.
+" Plugin 'preservim/tagbar' "See your tags in code, functions, variables, classes, etc.
+" Plugin 'tpope/vim-surround' "Surrounds words with parentheses, brackets, quotes, XML tags, and more.
 
 "Searching / Movement / Selection
-Plugin 'rking/ag.vim' "Easy AG with VIM
-Plugin 'haya14busa/incsearch.vim' "Improved vim search, '/'
-Plugin 'easymotion/vim-easymotion' "Vim motion on speed
-Plugin 'terryma/vim-multiple-cursors' "Submlime multiple text selection
+" Plugin 'rking/ag.vim' "Easy AG with VIM
+" Plugin 'haya14busa/incsearch.vim' "Improved vim search, '/'
+" Plugin 'easymotion/vim-easymotion' "Vim motion on speed
+" Plugin 'terryma/vim-multiple-cursors' "Submlime multiple text selection
 
 " Python
-Plugin 'vim-python/python-syntax' "Python syntax highlighting for Vim
-Plugin 'nvie/vim-flake8' "Flake8 plugin for Vim, press F7 to see output
-Plugin 'vim-scripts/indentpython.vim' "match indentation for PEP 8
-Plugin 'psf/black' "The uncompromising Python code formatter
-Plugin 'fisadev/vim-isort' "Vim plugin to sort python imports
+" Plugin 'vim-python/python-syntax' "Python syntax highlighting for Vim
+" Plugin 'nvie/vim-flake8' "Flake8 plugin for Vim, press F7 to see output
+" Plugin 'vim-scripts/indentpython.vim' "match indentation for PEP 8
+" Plugin 'psf/black' "The uncompromising Python code formatter
+" Plugin 'fisadev/vim-isort' "Vim plugin to sort python imports
 
 " Go
-Plugin 'fatih/vim-go' "This plugin adds Go language support for Vim
+" Plugin 'fatih/vim-go' "This plugin adds Go language support for Vim
 
 " Yaml
-Plugin 'stephpy/vim-yaml' "Override default vim yaml
+" Plugin 'stephpy/vim-yaml' "Override default vim yaml
 
-Plugin 'tpope/vim-fugitive' "Git wrapper so awesome, it should be illegal
-Plugin 'Konfekt/vim-alias' "Vim aliases, make aliases over vim functions
-Plugin 'pseewald/vim-anyfold' "Vim folding for any language
+" Plugin 'tpope/vim-fugitive' "Git wrapper so awesome, it should be illegal
+" Plugin 'Konfekt/vim-alias' "Vim aliases, make aliases over vim functions
+" Plugin 'pseewald/vim-anyfold' "Vim folding for any language
 
 " PlantUML
-Plugin 'tyru/open-browser.vim'
-Plugin 'aklt/plantuml-syntax' 
-Plugin 'weirongxu/plantuml-previewer.vim'
+" Plugin 'tyru/open-browser.vim'
+" Plugin 'aklt/plantuml-syntax' 
+" Plugin 'weirongxu/plantuml-previewer.vim'
 
 " GitHub CoPilot
-Plugin 'github/copilot.vim'
+" Plugin 'github/copilot.vim'
 
 " To find duplicate mappings.  E.g. <leader>p duplicates:
 " :verbose map <leader>p
@@ -76,7 +76,7 @@ set autowrite
 set clipboard=unnamed
 
 "See flazz/vim-colorschemes for other color schemes
-colorscheme smyck
+" colorscheme smyck
 "colorscheme monokai
 "set termguicolors
 set t_Co=256
