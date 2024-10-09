@@ -1,5 +1,10 @@
 function setup_antigen {
-    source /opt/homebrew/share/antigen/antigen.zsh
+    # if on macOS, use homebrew's antigen else use the git repo
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        source /opt/homebrew/share/antigen/antigen.zsh
+    else
+        source ~/antigen/bin/antigen.zsh
+    fi
 
     # Load the oh-my-zsh's library.
     antigen use oh-my-zsh
@@ -23,7 +28,8 @@ function setup_path {
     PATH="$PATH:/users/$USER/bin"
 
     # Homebrew
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
 
     # Direnv
     eval "$(direnv hook zsh)"
