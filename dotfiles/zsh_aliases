@@ -93,16 +93,16 @@ function capitalize-first-letter {
 ##############
 function ws {
   if [ ! $1 ]; then
-    cd ~/go/src/github.com/paxosglobal
+    cd ~/co
   else
-    cd ~/go/src/github.com/paxosglobal/$1
+    cd ~/co/$1
   fi
 }
 
 function cmpl_ws {
   local a
   read -cA a # The thing typed in so far
-  reply=(`echo ~/go/src/github.com/paxosglobal/* | xargs -n1 basename`)
+  reply=(`echo ~/co/* | xargs -n1 basename`)
 }
 compctl -K cmpl_ws ws
 
