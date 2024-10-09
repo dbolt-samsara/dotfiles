@@ -30,6 +30,7 @@ function setup_path {
     # Homebrew
     if [[ "$OSTYPE" == "darwin"* ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
 
     # Direnv
     eval "$(direnv hook zsh)"
