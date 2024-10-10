@@ -11,8 +11,6 @@ function setup_antigen {
   antigen bundle git
   antigen bundle vi-mode
   antigen bundle vundle
-  antigen bundle kubectl
-  antigen bundle minikube
 
   # Theme
   antigen theme romkatv/powerlevel10k
@@ -25,9 +23,6 @@ function setup_antigen {
 }
 
 function setup_path {
-  # Direnv
-  eval "$(direnv hook zsh)"
-
   PATH="$PATH:/users/$USER/bin"
 
   # Homebrew
@@ -35,16 +30,14 @@ function setup_path {
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 
+  # Direnv
+  if [ -x "$(command -v direnv)" ]; then
+    eval "$(direnv hook zsh)"
+  fi
+
   # Github Copilot alias
   if [[ -x "$(command -v gh)" && "$(gh copilot --version)" ]]; then
     eval "$(gh copilot alias -- zsh)"
-  fi
-
-  # Task Runner
-  autoload bashcompinit
-  bashcompinit
-  if [ -f $HOME/co/backend/bin/taskrunner-completion.bash ]; then
-    . $HOME/co/backend/bin/taskrunner-completion.bash
   fi
 
   # fzf
