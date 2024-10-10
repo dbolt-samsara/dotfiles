@@ -17,6 +17,11 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
 ########################
+# WORK SPECIFICS
+########################
+alias e='ssh devbox'
+
+########################
 # BASIC LINUX COMMANDS
 ########################
 
