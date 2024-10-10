@@ -25,6 +25,9 @@ function setup_antigen {
 }
 
 function setup_path {
+    # Direnv
+    eval "$(direnv hook zsh)"
+
     PATH="$PATH:/users/$USER/bin"
 
     # Homebrew
@@ -32,8 +35,10 @@ function setup_path {
         eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
 
-    # Direnv
-    eval "$(direnv hook zsh)"
+    # Github Copilot alias
+    if [[ -x "$(command -v gh)" && "$(gh copilot --version)" ]]; then
+      eval "$(gh copilot alias -- zsh)"
+    fi
 
     # powerlevel10k
     if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -54,3 +59,5 @@ function setup_aliases {
 setup_antigen
 setup_path
 setup_aliases
+
+source $HOME/co/backend/bin/taskrunner-completion.bash
