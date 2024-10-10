@@ -1,63 +1,71 @@
 function setup_antigen {
-    # if on macOS, use homebrew's antigen else use the git repo
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        source /opt/homebrew/share/antigen/antigen.zsh
-    else
-        source ~/antigen/bin/antigen.zsh
-    fi
+  # if on macOS, use homebrew's antigen else use the git repo
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    source /opt/homebrew/share/antigen/antigen.zsh
+  else
+    source ~/antigen/bin/antigen.zsh
+  fi
 
-    # Load the oh-my-zsh's library.
-    antigen use oh-my-zsh
-    antigen bundle git
-    antigen bundle vi-mode
-    antigen bundle vundle
-    antigen bundle kubectl
-    antigen bundle minikube
+  # Load the oh-my-zsh's library.
+  antigen use oh-my-zsh
+  antigen bundle git
+  antigen bundle vi-mode
+  antigen bundle vundle
+  antigen bundle kubectl
+  antigen bundle minikube
 
-    # Theme
-    antigen theme romkatv/powerlevel10k
+  # Theme
+  antigen theme romkatv/powerlevel10k
 
-    # Syntax highlighting bundle.
-    antigen bundle zsh-users/zsh-syntax-highlighting
+  # Syntax highlighting bundle.
+  antigen bundle zsh-users/zsh-syntax-highlighting
 
-    # Tell antigen that you're done.
-    antigen apply
+  # Tell antigen that you're done.
+  antigen apply
 }
 
 function setup_path {
-    # Direnv
-    eval "$(direnv hook zsh)"
+  # Direnv
+  eval "$(direnv hook zsh)"
 
-    PATH="$PATH:/users/$USER/bin"
+  PATH="$PATH:/users/$USER/bin"
 
-    # Homebrew
-    if [[ "$OSTYPE" == "darwin"* ]]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    fi
+  # Homebrew
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
 
-    # Github Copilot alias
-    if [[ -x "$(command -v gh)" && "$(gh copilot --version)" ]]; then
-      eval "$(gh copilot alias -- zsh)"
-    fi
+  # Github Copilot alias
+  if [[ -x "$(command -v gh)" && "$(gh copilot --version)" ]]; then
+    eval "$(gh copilot alias -- zsh)"
+  fi
 
-    # powerlevel10k
-    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-    fi
-    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  # Task Runner
+  autoload bashcompinit
+  bashcompinit
+  if [ -f $HOME/co/backend/bin/taskrunner-completion.bash ]; then
+    . $HOME/co/backend/bin/taskrunner-completion.bash
+  fi
 
-    export GPG_TTY=$(tty)
-    export PATH
+  # fzf
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+  # powerlevel10k
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+  export GPG_TTY=$(tty)
+  export PATH
 }
 
 function setup_aliases {
-    if [ -f ~/.zsh_aliases ]; then
-        source ~/.zsh_aliases
-    fi
+  if [ -f ~/.zsh_aliases ]; then
+    source ~/.zsh_aliases
+  fi
 }
 
 setup_antigen
 setup_path
 setup_aliases
-
-source $HOME/co/backend/bin/taskrunner-completion.bash
