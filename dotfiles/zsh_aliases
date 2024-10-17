@@ -19,7 +19,7 @@ bindkey '^Z' fancy-ctrl-z
 ########################
 # WORK SPECIFICS
 ########################
-alias e='ssh devbox'
+alias e='ssh -Y devbox'
 alias trls='taskrunner `taskrunner --list | fzf`'
 alias trun='taskrunner `taskrunner --describe | fzf | cut -d" " -f1`'
 
