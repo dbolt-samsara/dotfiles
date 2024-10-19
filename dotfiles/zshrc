@@ -24,6 +24,7 @@ function setup_antigen {
 
 function setup_path {
   PATH="$PATH:/users/$USER/bin"
+  PATH="$PATH:/home/ubuntu/bin"
 
   # Homebrew
   if [[ "$OSTYPE" == "darwin"* ]]; then

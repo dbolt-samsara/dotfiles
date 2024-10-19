@@ -5,5 +5,6 @@
 -- Add filename to top of windows bar
 vim.opt.winbar = "%=%m %f"
 
+-- Allow copying and pasting with CMD+c and CMD+p
+vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = "a"
--- ALlow copying and pasting with CMD+c and CMD+p
