@@ -49,6 +49,11 @@ alias l2="tree --dirsfirst -ChFL 2"
 alias l3="tree --dirsfirst -ChFL 3"
 alias initssh="ssh-agent -s && ssh-add ~/.ssh/id_ed25519"
 
+# Sync remote to local clipboard and local to remote clipboard
+# Need XQuartz installed locally and use ssh -X into remote machine
+alias syncrl='xclip -o -select clipboard | pbcopy'
+alias synclr='pbpaste | xclip -i -select clipboard'
+
 # parse json in a file. Assumes each line contains valid json. Useful for
 # formatting json from recs output
 #
