@@ -13,6 +13,7 @@ VIM_CONFIG = "#{Dir.pwd}/vim-config"
 CONFIG_DIR = "#{Dir.pwd}/config"
 SCRIPTS = "#{Dir.pwd}/scripts"
 NVIM_DIR = "#{Dir.pwd}/nvim"
+TMUXINATOR_DIR = "#{Dir.pwd}/tmuxinator"
 
 def main()
   options = parse_options()
@@ -92,6 +93,9 @@ def install_dotfiles()
   if !File.directory?("#{Dir.home}/.config")
     Dir.mkdir("#{Dir.home}/.config")
   end
+
+  # Tmuxinator
+  symlink(TMUXINATOR_DIR, "#{Dir.home}/.tmuxinator")
 
   # nvim 
   symlink(NVIM_DIR, "#{Dir.home}/.config/nvim")
