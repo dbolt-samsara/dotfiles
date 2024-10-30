@@ -36,14 +36,14 @@ windows:
         - pwd
         - pwd
         - pwd
-  - dotfiles:
-      root: ~/src/dotfiles/
+  - backend:
+      root: ~/co/backend
       layout: main-horizontal
       panes:
         - pwd
         - pwd
-  - backend:
-      root: ~/co/backend
+  - dotfiles:
+      root: ~/src/dotfiles/
       layout: main-horizontal
       panes:
         - pwd

@@ -31,15 +31,13 @@ end
 
 local function link_to_github()
   local repo_root = chomped_system("git rev-parse --show-toplevel")
-  local url_root =
-    chomped_system('git config --get remote.origin.url | sed "s/git@github.com:/github.com\\//" | sed "s/.git$//"')
-  local branch = chomped_system('git status -sb | grep "...origin/" | sed "s/.*origin\\///"')
+  local url_root = chomped_system('git remote get-url origin | sed "s/.*git@//" | sed "s/.git$//"')
+  local branch = chomped_system("git branch --show-current")
   local file_path_relative_to_repo_root = vim.fn.expand("%:p"):gsub(repo_root, "")
   local start_line = vim.fn.getpos("'<")[2]
   local end_line = vim.fn.getpos("'>")[2]
-
   local url =
-    string.format("%s/tree/%s/%s#L%d-L%d", url_root, branch, file_path_relative_to_repo_root, start_line, end_line)
+    string.format("%s/tree/%s%s#L%d-L%d", url_root, branch, file_path_relative_to_repo_root, start_line, end_line)
   vim.fn.setreg("+", url)
   print(url)
 end
