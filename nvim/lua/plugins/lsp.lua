@@ -18,7 +18,6 @@ return {
             },
           },
         },
-        stylelint_lsp = {},
         cssls = {},
       },
     },
