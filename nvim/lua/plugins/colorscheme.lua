@@ -14,6 +14,7 @@ return {
         },
         cursorline = {
           theme = "light",
+
           blend = 0.5,
         },
       })
@@ -23,10 +24,10 @@ return {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "tokyonight",
-      -- colorscheme = "catppuccin",
+      colorscheme = "catppuccin-mocha",
       --colorscheme = "habamax",
       -- colorscheme = "gruvbox",
-      colorscheme = "nordic",
+      -- colorscheme = "nordic",
     },
   },
 }
