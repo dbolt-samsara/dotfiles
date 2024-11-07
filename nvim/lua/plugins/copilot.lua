@@ -42,7 +42,7 @@ return {
           if selection then
             require("CopilotChat").load(selection.value:gsub("%.json$", ""), history_dir)
           else
-            print("No file selected!")
+            vim.notify("No file selected!")
           end
         end
 
@@ -76,7 +76,7 @@ return {
           local selections = picker:get_multi_selection()
 
           if #selections == 0 then
-            print("No files selected! Use tab to select.")
+            vim.notify("No files selected! Use tab to select.")
             return
           end
 
@@ -84,8 +84,11 @@ return {
           for _, entry in ipairs(selections) do
             local file_path = entry.path or entry.value -- adjust as needed
             os.remove(file_path) -- this removes the file
-            print("Deleted file: " .. file_path)
+            vim.notify("Deleted file: " .. file_path)
           end
+
+          -- Close telescope after deletion
+          actions.close(prompt_bufnr)
         end
 
         -- Telescope command to select files for deletion
