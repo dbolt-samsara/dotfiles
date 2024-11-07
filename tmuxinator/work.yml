@@ -30,10 +30,10 @@ root: ~/
 windows:
   - daemons:
       root: ~/co/backend/
-      layout: tiled
+      # layout: tiled
+      layout: main-horizontal
       panes:
-        - pwd
-        - pwd
+        - taskrunner frontend/only
         - pwd
         - pwd
   - backend:
@@ -41,7 +41,12 @@ windows:
       layout: main-horizontal
       panes:
         - pwd
-        - pwd
+        - pwd:
+  - git:
+      root: ~/co/backend
+      layout: main-horizontal
+      panes:
+        - lazygit
   - dotfiles:
       root: ~/src/dotfiles/
       layout: main-horizontal

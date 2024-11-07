@@ -25,7 +25,7 @@
     name = Derek Bolt
 	  signingkey = 8C45A48073C8D761
 [core]
-    editor = vim
+    editor = nvim
 [commit]
     gpgsign = true
 [filter "lfs"]
