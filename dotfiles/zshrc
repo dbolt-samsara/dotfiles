@@ -26,6 +26,10 @@ function setup_path {
   PATH="$PATH:/users/$USER/bin"
   PATH="$PATH:/home/ubuntu/bin"
 
+  if [[ -d "$HOME/co/backend" ]]; then
+    PATH=$PATH:$HOME/co/backend/bin
+  fi
+
   # Homebrew
   if [[ "$OSTYPE" == "darwin"* ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"

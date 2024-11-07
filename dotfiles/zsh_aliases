@@ -23,6 +23,10 @@ alias e='ssh devbox'
 alias trls='taskrunner `taskrunner --list | fzf`'
 alias trun='taskrunner `taskrunner --describe | fzf | cut -d" " -f1`'
 
+if [[ -d "$HOME/co/backend" ]]; then
+  alias open='$HOME/co/backend/bin/ropen'
+fi
+
 ########################
 # BASIC LINUX COMMANDS
 ########################

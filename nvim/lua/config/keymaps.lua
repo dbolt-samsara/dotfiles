@@ -49,9 +49,18 @@ local function link_to_github()
   local start_line = math.min(start_pos[2], end_pos[2])
   local end_line = math.max(start_pos[2], end_pos[2])
 
-  local url =
-    string.format("%s/blob/%s%s#L%d-L%d", url_root, remote_hash, file_path_relative_to_repo_root, start_line, end_line)
+  local url = string.format(
+    "https://%s/blob/%s%s#L%d-L%d",
+    url_root,
+    remote_hash,
+    file_path_relative_to_repo_root,
+    start_line,
+    end_line
+  )
+
+  -- Copy to clipboard
   vim.fn.setreg("+", url)
-  vim.notify(url)
+  vim.notify("URL copied: " .. url, vim.log.levels.INFO)
 end
+
 map("v", "<leader>cx", link_to_github, { noremap = true, silent = true, desc = "Link to GitHub" })
