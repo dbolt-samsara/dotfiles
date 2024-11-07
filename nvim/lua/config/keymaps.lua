@@ -17,7 +17,18 @@ map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
-map("v", "p", "<s-p>", { desc = "Paste over currently selected text without yanking it" })
+-- map("n", "p", "+<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
+-- map("v", "p", "+<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
+
+-- Force `p` to use the system clipboard in normal and visual modes
+vim.keymap.set("n", "p", '"+p', { noremap = true, silent = true })
+vim.keymap.set("v", "p", '"+p', { noremap = true, silent = true })
+-- map("v", "p", "+<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
+-- map("v", "p", "+<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
+
+-- Optional: also map `P` (for pasting before the cursor)
+vim.keymap.set("n", "P", '"*P', { noremap = true, silent = true })
+vim.keymap.set("v", "P", '"*P', { noremap = true, silent = true })
 
 ---------------------------------------------------------------------------------------------------------
 --------------------------------- Get GitHub link for selected code -------------------------------------
