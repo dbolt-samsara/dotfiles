@@ -36,11 +36,11 @@ local function link_to_github()
     :gsub("%.git$", "")
     :gsub("github.com:", "github.com/")
 
-  -- Get current branch name
-  local branch = vim.fn.trim(vim.fn.system("git rev-parse --abbrev-ref HEAD"))
+  -- Get the upstream tracking branch's commit hash
+  -- If no upstream is set, fallback to origin/HEAD
+  local hash_cmd = "git rev-parse @{upstream} 2>/dev/null || git rev-parse origin/HEAD"
+  local commit_hash = vim.fn.trim(vim.fn.system(hash_cmd))
 
-  -- Get latest remote commit hash for current branch
-  local remote_hash = vim.fn.trim(vim.fn.system("git rev-parse origin/" .. branch))
   local file_path_relative_to_repo_root = vim.fn.expand("%:p"):gsub(repo_root, "")
 
   -- Get the visual selection coordinates from the current selection
@@ -52,7 +52,7 @@ local function link_to_github()
   local url = string.format(
     "https://%s/blob/%s%s#L%d-L%d",
     url_root,
-    remote_hash,
+    commit_hash,
     file_path_relative_to_repo_root,
     start_line,
     end_line
