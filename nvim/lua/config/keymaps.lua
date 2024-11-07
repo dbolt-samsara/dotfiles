@@ -33,25 +33,22 @@ vim.keymap.set("v", "P", '"*P', { noremap = true, silent = true })
 ---------------------------------------------------------------------------------------------------------
 --------------------------------- Get GitHub link for selected code -------------------------------------
 ---------------------------------------------------------------------------------------------------------
-local function chomped_system(cmd)
-  local handle = io.popen(cmd)
-  local result = handle:read("*a")
-  handle:close()
-  return result:gsub("\n$", "")
-end
-
 local function link_to_github()
-  local repo_root = chomped_system("git rev-parse --show-toplevel")
-  local url_root = chomped_system('git remote get-url origin | sed "s/.*git@//" | sed "s/.git$//"')
-  -- Get the tracking branch instead of local branch
-  local branch = chomped_system("git rev-parse --abbrev-ref --symbolic-full-name @{u} | sed 's/origin\\///'")
+  local repo_root = vim.fn.trim(vim.fn.system("git rev-parse --show-toplevel"))
+  local url_root = vim.fn.trim(vim.fn.system('git remote get-url origin | sed "s/.*git@//" | sed "s/.git$//"'))
+  local branch =
+    vim.fn.trim(vim.fn.system("git rev-parse --abbrev-ref --symbolic-full-name @{u} | sed 's/origin\\///'"))
   local file_path_relative_to_repo_root = vim.fn.expand("%:p"):gsub(repo_root, "")
-  local start_line = vim.fn.getpos("'<")[2]
-  local end_line = vim.fn.getpos("'>")[2]
+
+  -- Get the visual selection coordinates from the current selection
+  local start_pos = vim.fn.getpos("v")
+  local end_pos = vim.fn.getpos(".")
+  local start_line = math.min(start_pos[2], end_pos[2])
+  local end_line = math.max(start_pos[2], end_pos[2])
+
   local url =
     string.format("%s/tree/%s%s#L%d-L%d", url_root, branch, file_path_relative_to_repo_root, start_line, end_line)
   vim.fn.setreg("+", url)
   vim.notify(url)
 end
-
 map("v", "<leader>cx", link_to_github, { noremap = true, silent = true, desc = "Link to GitHub" })
