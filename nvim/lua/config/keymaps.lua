@@ -36,6 +36,14 @@ vim.keymap.set("v", "P", '"*P', { noremap = true, silent = true })
 local function link_to_github()
   local repo_root = vim.fn.trim(vim.fn.system("git rev-parse --show-toplevel"))
   local url_root = vim.fn.trim(vim.fn.system('git remote get-url origin | sed "s/.*git@//" | sed "s/.git$//"'))
+
+  -- Convert git URL to web URL format
+  url_root = url_root
+    :gsub("^git@", "https://")
+    :gsub("^https://", "https://")
+    :gsub("%.git$", "")
+    :gsub("github.com:", "github.com/")
+
   local branch =
     vim.fn.trim(vim.fn.system("git rev-parse --abbrev-ref --symbolic-full-name @{u} | sed 's/origin\\///'"))
   local file_path_relative_to_repo_root = vim.fn.expand("%:p"):gsub(repo_root, "")
