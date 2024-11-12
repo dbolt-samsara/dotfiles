@@ -17,10 +17,10 @@ map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
-map("v", "p", "+<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
-map("v", "p", "+<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
-map("v", "p", "+<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
-map("v", "P", "+<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
+map("v", "p", "<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
+map("v", "p", "<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
+map("v", "p", "<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
+map("v", "P", "<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
 
 ---------------------------------------------------------------------------------------------------------
 --------------------------------- Get GitHub link for selected code -------------------------------------
