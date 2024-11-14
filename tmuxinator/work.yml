@@ -33,20 +33,21 @@ windows:
       # layout: tiled
       layout: main-horizontal
       panes:
-        - taskrunner frontend/only
-        - pwd
+        - ssh -t devbox "cd ~/co/backend; zsh -l"
+        - mutagen project start
         - pwd
   - backend:
       root: ~/co/backend
       layout: main-horizontal
       panes:
         - pwd
-        - pwd:
+        - pwd
   - git:
       root: ~/co/backend
       layout: main-horizontal
       panes:
         - lazygit
+        - pwd
   - dotfiles:
       root: ~/src/dotfiles/
       layout: main-horizontal

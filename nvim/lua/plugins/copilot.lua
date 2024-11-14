@@ -1,6 +1,7 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
+    version = "v2.16.0",
     -- stylua: ignore
     keys = {
       { "<leader>aD", "<cmd>Copilot disable<cr>", desc = "Disable (Copilot)" },
