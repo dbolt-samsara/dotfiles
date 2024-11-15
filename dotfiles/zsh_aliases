@@ -101,6 +101,14 @@ function capitalize-first-letter {
 }
 
 ##############
+# Golang
+##############
+function go-cover {                                                                                                                                                                                        2 ✘  44s  ▼  samsara-backend 3.7.13   ubuntu@ip-10-48-34-66  NORMAL  00:00:24
+    t="/tmp/go-cover.$$.tmp"
+    go test -coverprofile=$t $@ && go tool cover -html=$t && unlink $t
+}
+
+##############
 # Projects
 ##############
 function ws {
