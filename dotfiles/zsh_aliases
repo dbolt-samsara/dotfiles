@@ -23,6 +23,38 @@ alias e='ssh devbox'
 alias trls='taskrunner `taskrunner --list | fzf`'
 alias trun='taskrunner `taskrunner --describe | fzf | cut -d" " -f1`'
 
+function msync () {
+    # Step 1: Pause Mutagen
+    echo "Pausing Mutagen..."
+    mutagen project pause
+
+    # Step 2: Checkout master branch and pull updates on laptop
+    echo "Checking out master branch and pulling updates on laptop..."
+    cd ~/co/backend || exit
+    git stash
+    git checkout master
+    git pull
+
+    # Step 3: SSH into devbox, navigate to ~/co/backend, and reset repo
+    echo "Connecting to devbox and updating repository..."
+    ssh devbox << 'EOF'
+        cd ~/co/backend || exit
+        echo "Resetting to origin/master..."
+        git reset --hard origin/master
+        git checkout master
+        echo "Cleaning repository..."
+        git clean -fd
+        echo "Pulling latest changes..."
+        git pull
+EOF
+
+    # Step 4: Resume Mutagen
+    echo "Resuming Mutagen..."
+    mutagen project resume
+
+    echo "Done."
+}
+
 ########################
 # BASIC LINUX COMMANDS
 ########################

@@ -28,14 +28,13 @@ root: ~/
 # post: tmux -CC attach -t work
 
 windows:
-  - daemons:
+  - devbox:
       root: ~/co/backend/
-      # layout: tiled
-      layout: main-horizontal
+      layout: tiled
       panes:
-        - ssh -t devbox "cd ~/co/backend; zsh -l"
+        - taskrunner devbox/run
         - mutagen project start
-        - pwd
+        - sleep 60 && ssh -t devbox "cd ~/co/backend; zsh -l"
   - backend:
       root: ~/co/backend
       layout: main-horizontal
@@ -47,10 +46,11 @@ windows:
       layout: main-horizontal
       panes:
         - lazygit
+        - sleep 60 && ssh -t devbox "cd ~/co/backend; zsh -l"
         - pwd
   - dotfiles:
       root: ~/src/dotfiles/
       layout: main-horizontal
       panes:
-        - pwd
+        - nvim
         - pwd
