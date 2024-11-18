@@ -33,8 +33,8 @@ windows:
       layout: tiled
       panes:
         - taskrunner devbox/run
-        - mutagen project start
-        - sleep 60 && ssh -t devbox "cd ~/co/backend; zsh -l"
+        - sleep 120 && mutagen project start
+        - sleep 120 && ssh -t devbox "cd ~/co/backend; zsh -l"
   - backend:
       root: ~/co/backend
       layout: main-horizontal
@@ -46,7 +46,7 @@ windows:
       layout: main-horizontal
       panes:
         - lazygit
-        - sleep 60 && ssh -t devbox "cd ~/co/backend; zsh -l"
+        - sleep 120 && ssh -t devbox "cd ~/co/backend; zsh -l"
         - pwd
   - dotfiles:
       root: ~/src/dotfiles/

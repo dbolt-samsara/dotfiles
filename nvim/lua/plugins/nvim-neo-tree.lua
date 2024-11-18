@@ -9,7 +9,6 @@ return {
             source = "document_symbols",
             toggle = true,
             position = "right",
-            follow_cursor = true,
           })
         end,
         desc = "Symbols (neo-tree)",
