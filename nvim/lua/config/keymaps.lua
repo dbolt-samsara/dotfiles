@@ -22,6 +22,10 @@ map("v", "p", "<s-p>", { desc = "Paste using system clipboard, and over selected
 map("v", "p", "<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
 map("v", "P", "<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
 
+-- Remove copilot default mappings
+vim.keymap.del("n", "<leader>aD")
+vim.keymap.del("n", "<leader>aE")
+
 ---------------------------------------------------------------------------------------------------------
 --------------------------------- Get GitHub link for selected code -------------------------------------
 ---------------------------------------------------------------------------------------------------------
