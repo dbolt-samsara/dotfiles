@@ -3,10 +3,11 @@ vim.g.copilot_toggle_enabled = true
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    version = "v2.16.0",
     -- stylua: ignore
     keys = {
       {"<leader>aa", false},
+      {"<leader>aE", false},
+      {"<leader>aD", false},
       { "<leader>ac", "<cmd>CopilotChatToggle<cr>", desc = "Toggle (CopilotChat)" },
       { "<leader>aC",
         function()

@@ -1,17 +1,24 @@
 return {
-  "nvimdev/dashboard-nvim",
-  opts = function(_, opts)
-    -- https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=BOLT%20VIM
-    local logo = [[
+  "folke/snacks.nvim",
+  opts = {
+    dashboard = {
+      preset = {
+        -- https://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=BOLT%20VIM
+        header = [[
         ██████╗  ██████╗ ██╗  ████████╗    ██╗   ██╗██╗███╗   ███╗
         ██╔══██╗██╔═══██╗██║  ╚══██╔══╝    ██║   ██║██║████╗ ████║
         ██████╔╝██║   ██║██║     ██║       ██║   ██║██║██╔████╔██║
         ██╔══██╗██║   ██║██║     ██║       ╚██╗ ██╔╝██║██║╚██╔╝██║
         ██████╔╝╚██████╔╝███████╗██║        ╚████╔╝ ██║██║ ╚═╝ ██║
         ╚═════╝  ╚═════╝ ╚══════╝╚═╝         ╚═══╝  ╚═╝╚═╝     ╚═╝
-    ]]
-
-    logo = string.rep("\n", 8) .. logo .. "\n\n"
-    opts.config.header = vim.split(logo, "\n")
-  end,
+ ]],
+      },
+      sections = {
+        { section = "header" },
+        { section = "keys", gap = 1 },
+        { icon = " ", title = "Projects", section = "projects", indent = 2, padding = { 2, 2 } },
+        { section = "startup" },
+      },
+    },
+  },
 }
