@@ -60,6 +60,9 @@ local function link_to_github()
   -- Copy to clipboard
   vim.fn.setreg("+", url)
   vim.notify("URL copied: " .. url, vim.log.levels.INFO)
+
+  -- Open in browser
+  vim.fn.jobstart({ "open", url }, { detach = true })
 end
 
 map("v", "<leader>cx", link_to_github, { noremap = true, silent = true, desc = "Link to GitHub" })

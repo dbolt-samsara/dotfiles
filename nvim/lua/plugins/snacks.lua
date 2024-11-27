@@ -1,5 +1,10 @@
 return {
   "folke/snacks.nvim",
+
+  -- stylua: ignore
+  keys = {
+  },
+
   opts = {
     dashboard = {
       preset = {
