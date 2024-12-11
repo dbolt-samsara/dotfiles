@@ -17,6 +17,8 @@ map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
+-- Copy / paste
+map("v", "<C-c>", '"+y', { desc = "Ctrl+C will copy onto clipboard, assumes terminal replaces Cmd+c -> Ctrl+c" })
 map("v", "p", "<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
 map("v", "p", "<s-p>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
 map("v", "p", "<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
