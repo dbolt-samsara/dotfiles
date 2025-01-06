@@ -8,6 +8,7 @@ return {
   },
   {
     "olimorris/persisted.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
     lazy = false,
     config = function()
       require("persisted").setup({

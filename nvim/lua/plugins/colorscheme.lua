@@ -1,17 +1,16 @@
 return {
   {
     "folke/tokyonight.nvim",
+    lazy = true,
     opts = { style = "night" },
   },
-  { "ellisonleao/gruvbox.nvim" },
+  { "ellisonleao/gruvbox.nvim", lazy = true },
   {
     "AlexvZyl/nordic.nvim",
+    lazy = true,
     config = function()
       require("nordic").setup({
         bright_border = true,
-        telescope = {
-          style = "classic",
-        },
         cursorline = {
           theme = "light",
 
