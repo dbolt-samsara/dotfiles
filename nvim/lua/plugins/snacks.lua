@@ -25,5 +25,11 @@ return {
         { section = "startup" },
       },
     },
+
+    styles = {
+      zen = {
+        width = 200,
+      },
+    },
   },
 }
