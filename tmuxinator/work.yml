@@ -32,8 +32,8 @@ windows:
       root: ~/co/backend/
       layout: tiled
       panes:
-        - taskrunner devbox/run
-        - mutagen project start
+        - pwd
+        - pwd
         - pwd
   - backend:
       root: ~/co/backend
@@ -45,7 +45,7 @@ windows:
       root: ~/co/backend
       layout: main-horizontal
       panes:
-        - lazygit
+        - pwd
         - pwd
         - pwd
   - dotfiles:
