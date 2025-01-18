@@ -4,6 +4,7 @@
 -- Add any additional keymaps here
 
 local map = vim.keymap.set
+local unpack = table.unpack or unpack
 
 -- save
 map("n", "<Leader>w", ":w<CR>", { desc = "save", silent = true })
@@ -24,12 +25,13 @@ map("v", "p", "<s-p>", { desc = "Paste using system clipboard, and over selected
 map("v", "p", "<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
 map("v", "P", "<s-P>", { desc = "Paste using system clipboard, and over selected text without yanking it." })
 
-
 ---------------------------------------------------------------------------------------------------------
 --------------------------------- VSCode Mappings  ------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 if vim.g.vscode then
   local function vscode(command)
+    -- Add debug print
+    vim.notify("VSCode command: " .. command, vim.log.levels.INFO)
     return string.format("<cmd>call VSCodeNotify('%s')<CR>", command)
   end
 
@@ -85,15 +87,14 @@ if vim.g.vscode then
     { "n", "<C-l>", "workbench.action.navigateRight" },
 
     -- Panel toggles
-    { "n", "<leader>ue", "workbench.action.toggleSidebarVisibility" }, -- Toggle left sidebar
-    { "n", "<leader>ub", "workbench.action.togglePanel" }, -- Toggle bottom panel
-    { "n", "<leader>ur", "workbench.action.toggleAuxiliaryBar" }, -- Toggle right sidebar
+    { "n", "<leader>ue", "workbench.action.toggleSidebarVisibility" },
+    { "n", "<leader>ub", "workbench.action.togglePanel" },
+    { "n", "<leader>ur", "workbench.action.toggleAuxiliaryBar" },
   }
 
   -- Apply all keymaps
   for _, keymap in pairs(keymaps) do
-    local mode, lhs, rhs = table.unpack(keymap)
-    -- Handle both string and function values for rhs
+    local mode, lhs, rhs = unpack(keymap)
     local cmd = type(rhs) == "function" and rhs() or vscode(rhs)
     vim.keymap.set(mode, lhs, cmd, { silent = true })
   end
