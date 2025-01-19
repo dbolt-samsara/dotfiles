@@ -81,7 +81,7 @@ if vim.g.vscode then
     { "n", "<leader>|", "workbench.action.splitEditorRight" },
 
     -- Window navigation with conditional behavior
-    { "n", "<c-h>", "workbench.action.navigateleft" },
+    { "n", "<c-h>", "workbench.action.navigateLeft" },
     { "n", "<C-j>", "workbench.action.navigateDown" },
     { "n", "<C-k>", "workbench.action.navigateUp" },
     { "n", "<C-l>", "workbench.action.navigateRight" },
