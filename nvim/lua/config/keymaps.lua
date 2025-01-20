@@ -35,6 +35,14 @@ if vim.g.vscode then
     return string.format("<cmd>call VSCodeNotify('%s')<CR>", command)
   end
 
+  -- State for file explorer toggle
+  local explorer_focused = false
+  local function toggle_explorer()
+    explorer_focused = not explorer_focused
+    local command = explorer_focused and "workbench.files.action.focusFilesExplorer" or "workbench.action.closeSidebar"
+    vim.fn.VSCodeNotify(command)
+  end
+
   -- Common LazyVim keymaps mapped to VSCode equivalents
   -- https://www.lazyvim.org/keymaps
   local keymaps = {
@@ -50,15 +58,17 @@ if vim.g.vscode then
     { "n", "<leader>sw", "workbench.action.findInFiles" },
     { "n", "<leader>/", "workbench.action.findInFiles" },
 
-    -- File explorer
-    { "n", "<leader>e", "workbench.action.toggleSidebarVisibility" },
+    -- File explorer (stateful toggle)
+    { "n", "<leader>e", toggle_explorer },
 
     -- Buffer/Editor/Window management
     { "n", "<leader>w", "workbench.action.files.save" },
+
     -- Close editor group and window
     { "n", "<leader>q", "workbench.action.closeAllEditors" },
     { "n", "<leader>bd", "workbench.action.closeActiveEditor" },
     { "n", "<leader>wd", "workbench.action.closeActiveEditor" },
+
     -- Buffer navigation
     { "n", "<S-h>", "workbench.action.previousEditor" },
     { "n", "<S-l>", "workbench.action.nextEditor" },
@@ -70,11 +80,6 @@ if vim.g.vscode then
     { "n", "K", "editor.action.showHover" },
     { "n", "<leader>ca", "editor.action.quickFix" },
     { "n", "<leader>cr", "editor.action.rename" },
-
-    -- Diagnostics
-    { "n", "<leader>cd", "editor.action.showHover" },
-    { "n", "[d", "editor.action.marker.prev" },
-    { "n", "]d", "editor.action.marker.next" },
 
     -- Window splits
     { "n", "<leader>-", "workbench.action.splitEditorDown" },
@@ -95,8 +100,11 @@ if vim.g.vscode then
   -- Apply all keymaps
   for _, keymap in pairs(keymaps) do
     local mode, lhs, rhs = unpack(keymap)
-    local cmd = type(rhs) == "function" and rhs() or vscode(rhs)
-    vim.keymap.set(mode, lhs, cmd, { silent = true })
+    if type(rhs) == "function" then
+      vim.keymap.set(mode, lhs, rhs, { silent = true })
+    else
+      vim.keymap.set(mode, lhs, vscode(rhs), { silent = true })
+    end
   end
 end
 
