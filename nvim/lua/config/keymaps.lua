@@ -46,6 +46,10 @@ if vim.g.vscode then
   -- Common LazyVim keymaps mapped to VSCode equivalents
   -- https://www.lazyvim.org/keymaps
   local keymaps = {
+    -- Undo/Redo
+    { "n", "u", "undo" },
+    { "n", "<C-r>", "redo" },
+
     -- File navigation
     { "n", "<leader><leader>", "workbench.action.quickOpen" },
     { "n", "<leader>ff", "workbench.action.quickOpen" },
@@ -54,8 +58,6 @@ if vim.g.vscode then
     { "n", "<leader>,", "workbench.action.showAllEditors" },
 
     -- Search
-    { "n", "<leader>sg", "workbench.action.findInFiles" },
-    { "n", "<leader>sw", "workbench.action.findInFiles" },
     { "n", "<leader>/", "workbench.action.findInFiles" },
 
     -- File explorer (stateful toggle)
