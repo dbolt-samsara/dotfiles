@@ -97,6 +97,10 @@ if vim.g.vscode then
     { "n", "<leader>ue", "workbench.action.toggleSidebarVisibility" },
     { "n", "<leader>ub", "workbench.action.togglePanel" },
     { "n", "<leader>ur", "workbench.action.toggleAuxiliaryBar" },
+
+    -- Open File On Remote
+    { "n", "<leader>cx", "gitlens.openFileOnRemote" },
+    { "v", "<leader>cx", "gitlens.openFileOnRemote" },
   }
 
   -- Apply all keymaps
@@ -113,45 +117,47 @@ end
 ---------------------------------------------------------------------------------------------------------
 --------------------------------- Get GitHub link for selected code -------------------------------------
 ---------------------------------------------------------------------------------------------------------
-local function link_to_github()
-  local repo_root = vim.fn.trim(vim.fn.system("git rev-parse --show-toplevel"))
-  local url_root = vim.fn.trim(vim.fn.system('git remote get-url origin | sed "s/.*git@//" | sed "s/.git$//"'))
+if not vim.g.vscode then
+  local function link_to_github()
+    local repo_root = vim.fn.trim(vim.fn.system("git rev-parse --show-toplevel"))
+    local url_root = vim.fn.trim(vim.fn.system('git remote get-url origin | sed "s/.*git@//" | sed "s/.git$//"'))
 
-  -- Convert git URL to web URL format
-  url_root = url_root
-    :gsub("^git@", "https://")
-    :gsub("^https://", "https://")
-    :gsub("%.git$", "")
-    :gsub("github.com:", "github.com/")
+    -- Convert git URL to web URL format
+    url_root = url_root
+      :gsub("^git@", "https://")
+      :gsub("^https://", "https://")
+      :gsub("%.git$", "")
+      :gsub("github.com:", "github.com/")
 
-  -- Get the upstream tracking branch's commit hash
-  -- If no upstream is set, fallback to origin/HEAD
-  local hash_cmd = "git rev-parse @{upstream} 2>/dev/null || git rev-parse origin/HEAD"
-  local commit_hash = vim.fn.trim(vim.fn.system(hash_cmd))
+    -- Get the upstream tracking branch's commit hash
+    -- If no upstream is set, fallback to origin/HEAD
+    local hash_cmd = "git rev-parse @{upstream} 2>/dev/null || git rev-parse origin/HEAD"
+    local commit_hash = vim.fn.trim(vim.fn.system(hash_cmd))
 
-  local file_path_relative_to_repo_root = vim.fn.expand("%:p"):gsub(repo_root, "")
+    local file_path_relative_to_repo_root = vim.fn.expand("%:p"):gsub(repo_root, "")
 
-  -- Get the visual selection coordinates from the current selection
-  local start_pos = vim.fn.getpos("v")
-  local end_pos = vim.fn.getpos(".")
-  local start_line = math.min(start_pos[2], end_pos[2])
-  local end_line = math.max(start_pos[2], end_pos[2])
+    -- Get the visual selection coordinates from the current selection
+    local start_pos = vim.fn.getpos("v")
+    local end_pos = vim.fn.getpos(".")
+    local start_line = math.min(start_pos[2], end_pos[2])
+    local end_line = math.max(start_pos[2], end_pos[2])
 
-  local url = string.format(
-    "https://%s/blob/%s%s#L%d-L%d",
-    url_root,
-    commit_hash,
-    file_path_relative_to_repo_root,
-    start_line,
-    end_line
-  )
+    local url = string.format(
+      "https://%s/blob/%s%s#L%d-L%d",
+      url_root,
+      commit_hash,
+      file_path_relative_to_repo_root,
+      start_line,
+      end_line
+    )
 
-  -- Copy to clipboard
-  vim.fn.setreg("+", url)
-  vim.notify("URL copied: " .. url, vim.log.levels.INFO)
+    -- Copy to clipboard
+    vim.fn.setreg("+", url)
+    vim.notify("URL copied: " .. url, vim.log.levels.INFO)
 
-  -- Open in browser
-  vim.fn.jobstart({ "open", url }, { detach = true })
+    -- Open in browser
+    vim.fn.jobstart({ "open", url }, { detach = true })
+  end
+
+  map("v", "<leader>cx", link_to_github, { noremap = true, silent = true, desc = "Link to GitHub" })
 end
-
-map("v", "<leader>cx", link_to_github, { noremap = true, silent = true, desc = "Link to GitHub" })
