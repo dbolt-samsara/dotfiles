@@ -53,7 +53,7 @@ if vim.g.vscode then
     -- File navigation
     { "n", "<leader><leader>", "workbench.action.quickOpen" },
     { "n", "<leader>ff", "workbench.action.quickOpen" },
-    { "n", "<leader>fr", "workbench.action.openRecent" },
+    { "n", "<leader>ff", "workbench.action.quickOpen" },
     { "n", "<leader>fb", "workbench.action.showAllEditors" },
     { "n", "<leader>,", "workbench.action.showAllEditors" },
 
