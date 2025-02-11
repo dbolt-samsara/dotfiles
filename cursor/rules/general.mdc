@@ -2,6 +2,9 @@
 description: use this rule for all cases
 globs: 
 ---
+# Atlassian
+Use the ATLASSIAN_API_KEY in .environment to access Atlassian pages. Use whatever tool is suitable.
+
 # Tools
 
 Note all the tools are in python. So in the case you need to do batch processing, you can always consult the python files and write your own script.
@@ -13,12 +16,12 @@ The screenshot verification workflow allows you to capture screenshots of web pa
 
 1. Screenshot Capture:
 ```bash
-python tools/screenshot_utils.py URL [--output OUTPUT] [--width WIDTH] [--height HEIGHT]
+python .cursor/tools/screenshot_utils.py URL [--output OUTPUT] [--width WIDTH] [--height HEIGHT]
 ```
 
 2. LLM Verification with Images:
 ```bash
-python tools/llm_api.py --prompt "Your verification question" --provider {openai|anthropic} --image path/to/screenshot.png
+python .cursor/tools/llm_api.py --prompt "Your verification question" --provider {openai|anthropic} --image path/to/screenshot.png
 ```
 
 Example workflow:
@@ -53,11 +56,11 @@ The LLM API supports multiple providers:
 - Gemini (model: gemini-pro)
 - Local LLM (model: Qwen/Qwen2.5-32B-Instruct-AWQ)
 
-But usually it's a better idea to check the content of the file and use the APIs in the `tools/llm_api.py` file to invoke the LLM if needed.
+But usually it's a better idea to check the content of the file and use the APIs in the `.cursor/tools/llm_api.py` file to invoke the LLM if needed.
 
 ## Web browser
 
-You could use the `tools/web_scraper.py` file to scrape the web.
+You could use the `.cursor/tools/web_scraper.py` file to scrape the web.
 ```
 python ./tools/web_scraper.py --max-concurrent 3 URL1 URL2 URL3
 ```
@@ -65,7 +68,7 @@ This will output the content of the web pages.
 
 ## Search engine
 
-You could use the `tools/search_engine.py` file to search the web.
+You could use the `.cursor/tools/search_engine.py` file to search the web.
 ```
 python ./tools/search_engine.py "your search keywords"
 ```
