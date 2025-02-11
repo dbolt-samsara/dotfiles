@@ -1,3 +1,7 @@
+---
+description: use this rule for all cases
+globs: 
+---
 # Tools
 
 Note all the tools are in python. So in the case you need to do batch processing, you can always consult the python files and write your own script.
